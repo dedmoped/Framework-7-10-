@@ -11,9 +11,9 @@ namespace Framework.Pages
         private IWebElement People;
         [FindsBy(How = How.ClassName, Using = "Select__listItem__2iqJZ")]
         private IWebElement PeopleNumber;
-        [FindsBy(How = How.ClassName, Using = "Select__text__36ki-")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[5]/div/div[2]/div[1]/div/button/div/span/span[1]")]
         private IWebElement Children;
-        [FindsBy(How = How.ClassName, Using = "Select__content__1YPzt")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[5]/div/div[2]/div[1]/div/span/div/div/div/div[2]")]
         private IWebElement ChildrenNumber;
         [FindsBy(How = How.ClassName, Using = "radio__radio__1-Chd")]
         private IWebElement cupe;
@@ -21,8 +21,6 @@ namespace Framework.Pages
         private IWebElement NextPage;
         [FindsBy(How = How.ClassName, Using = "_pseudo")]
         private IWebElement activ;
-       
-        
         [FindsBy(How = How.ClassName, Using = "alert_title")]
         private IWebElement Error;
 
@@ -39,15 +37,16 @@ namespace Framework.Pages
         }
         public TakePlace CheckChildrenNumber()
         {
+            People.Click();
+            PeopleNumber.Click();
             Children.Click();
-           ChildrenNumber.Click();
+            ChildrenNumber.Click();
             return this;
         }
         public DataTest CorrectNumber()
         {
             People.Click();
             cupe.Click();
-            activ.Click();
             NextPage.Click();
             return  new DataTest(Browser);
         }

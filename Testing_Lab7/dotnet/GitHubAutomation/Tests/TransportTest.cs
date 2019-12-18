@@ -45,7 +45,7 @@ namespace Framework
         public void ChildrenBuyTickets()
         {
             TakePlace homePage = new HomePage(Browser).InpuntInformationAndMoveTo(CreateWay.GetPeopleNumberInfo()).Takefirst().CheckChildrenNumber();
-            Assert.AreEqual("Ребенка не посадят в поезд без сопровождающего взрослого. Вы можете оформить детский билет отдельно от билета для сопровождающего", homePage.GetError());
+            Assert.AreEqual("Ребенок до 10 лет не может ехать без взрослого", homePage.GetError());
         }
 
         [Test]
@@ -80,8 +80,8 @@ namespace Framework
         [Test]
         public void Register()
         {
-            HomePage homePage = new HomePage(Browser);
-            Assert.IsTrue(homePage.Sign());
+            HomePage homePage = new HomePage(Browser).Sign();
+            Assert.AreEqual("Укажите электронную почту", homePage.GetErrorRegister());
         }
     }
 }

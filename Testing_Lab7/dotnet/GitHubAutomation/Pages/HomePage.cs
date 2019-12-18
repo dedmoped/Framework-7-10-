@@ -31,8 +31,10 @@ namespace Framework.Pages
         private IWebElement Register;
         [FindsBy(How = How.ClassName, Using = "j-agree")]
         private IWebElement ChekBox;
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Зарегистрироваться')]")]
-        private IWebElement TextIn;
+        [FindsBy(How = How.XPath, Using = "//*[@id='reg-container']/div/div[1]/div[1]/form/div[4]/button")]
+        private IWebElement RegisterButton;
+        [FindsBy(How = How.ClassName, Using = "paragraph")]
+        private IWebElement Station_Error2;
         [FindsBy(How = How.ClassName, Using = "j-popup-content")]
         private IWebElement Station_Error;
 
@@ -61,19 +63,12 @@ namespace Framework.Pages
             return this;
         }
 
-        public bool Sign()
+        public HomePage Sign()
         {
-            try
-            {
                 Register.Click();
                 ChekBox.Click();
-               // TextIn.Click();                
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+                RegisterButton.Click();
+            return this;
         }
         public bool EnableBackDate()
         {
@@ -92,6 +87,10 @@ namespace Framework.Pages
             return Station_Error.Text;
             
         }
-        
+        public string GetErrorRegister()
+        {
+            return Station_Error2.Text;
+
+        }
     }
 }

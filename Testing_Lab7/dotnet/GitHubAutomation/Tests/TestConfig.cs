@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using Framework.Driver;
 using NUnit.Framework.Interfaces;
+using System.Threading;
 
 namespace Framework.Tests
 {

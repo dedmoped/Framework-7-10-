@@ -20,7 +20,7 @@ namespace Framework.Pages
         private IWebElement ClickDocNumber;
         [FindsBy(How = How.ClassName, Using = "_last_name")]
         private IWebElement Station_Error;
-        [FindsBy(How = How.ClassName, Using = "b-popup__content__standart")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[5]/div/div/div[2]/div/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/span/div/div/div")]
         private IWebElement DocumentError;
 
         public DataTest(IWebDriver Browser)
