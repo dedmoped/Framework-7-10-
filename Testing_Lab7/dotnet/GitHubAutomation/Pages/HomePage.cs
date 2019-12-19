@@ -105,10 +105,12 @@ namespace Framework.Pages
         public void CleareField(IWebElement stationfrom,IWebElement stationto,IWebElement date )
         {
             wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(60));
-            wait.Until(ExpectedConditions.ElementToBeClickable(StationFromField)).Click();
-            StationFromField.Clear();
-            wait.Until(ExpectedConditions.ElementToBeClickable(StationToField)).Click();
-            StationToField.Clear();
+            wait.Until(ExpectedConditions.ElementToBeClickable(stationfrom)).Click();
+            stationfrom.Clear();
+            wait.Until(ExpectedConditions.ElementToBeClickable(stationto)).Click();
+            stationto.Clear();
+            wait.Until(ExpectedConditions.ElementToBeClickable(date)).Click();
+            date.Clear();
         }
     }
 }
