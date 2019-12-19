@@ -24,9 +24,9 @@ namespace GitHubAutomation.Services
             }
         }
 
-        public static string GetData(string key)
+        public static KeyValueConfigurationElement GetData(string key)
         {
-            return Config.AppSettings.Settings[key]?.Value;
+            return Config.AppSettings.Settings[key];
         }
     }
 }
