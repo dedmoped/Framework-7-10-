@@ -34,7 +34,7 @@ namespace Framework.Pages
         private IWebElement ActiveRegistrationCheckBox;
         [FindsBy(How = How.XPath, Using = "//*[@id='reg-container']/div/div[1]/div[1]/form/div[4]/button")]
         private IWebElement RegistrationButton;
-        [FindsBy(How = How.ClassName, Using = "paragraph")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='reg-container']/div/div[1]/div[1]/form/span/span/span/span[2]/span")]
         private IWebElement RegistrationError;
         [FindsBy(How = How.ClassName, Using = "j-popup-content")]
         private IWebElement StationError;
@@ -47,22 +47,24 @@ namespace Framework.Pages
         
         public TrainsPage InpuntInformationAndMoveToNextPage(Way way)
         {
-            CleareField(StationFromField, StationToField, DateField);
+            CleareField(StationFromField);
             StationFromField.SendKeys(way.DepartureCity);
+            CleareField(StationToField);
             StationToField.SendKeys(way.ArrivalCity);
+            CleareField(DateField);
             DateField.SendKeys(way.DepartureDate);
-            DateField.Click();
             FindButton.Click();
             Log.Info("Input Station Information and move to next page");
             return new TrainsPage(Browser);
         }
         public HomePage InpuntInformation(Way way)
         {
-            CleareField(StationFromField, StationToField, DateField);
+            CleareField(StationFromField);
             StationFromField.SendKeys(way.DepartureCity);
+            CleareField(StationToField);
             StationToField.SendKeys(way.ArrivalCity);
+            CleareField(DateField);
             DateField.SendKeys(way.DepartureDate);
-            DateField.Click();
             FindButton.Click();
             Log.Info("Input Station Information");
             return this;
@@ -102,15 +104,12 @@ namespace Framework.Pages
             Log.Info("Get registration error");
             return RegistrationError.Text;
         }
-        public void CleareField(IWebElement stationfrom,IWebElement stationto,IWebElement date )
+        public void CleareField(IWebElement info)
         {
-            wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(60));
-            wait.Until(ExpectedConditions.ElementToBeClickable(stationfrom)).Click();
-            stationfrom.Clear();
-            wait.Until(ExpectedConditions.ElementToBeClickable(stationto)).Click();
-            stationto.Clear();
-            wait.Until(ExpectedConditions.ElementToBeClickable(date)).Click();
-            date.Clear();
+            wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(30));
+            wait.Until(ExpectedConditions.ElementToBeClickable(info)).Click();
+            info.Clear();
+           
         }
     }
 }
