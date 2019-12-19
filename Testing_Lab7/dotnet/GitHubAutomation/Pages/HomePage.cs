@@ -104,7 +104,7 @@ namespace Framework.Pages
         }
         public void CleareField(IWebElement stationfrom,IWebElement stationto,IWebElement date )
         {
-            wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(5));
+            wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(60));
             wait.Until(ExpectedConditions.ElementToBeClickable(StationFromField)).Click();
             StationFromField.Clear();
             wait.Until(ExpectedConditions.ElementToBeClickable(StationToField)).Click();
