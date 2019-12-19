@@ -8,35 +8,34 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Framework.model;
 using log4net;
-using System.Threading;
 
 namespace Framework.Pages
 {
     class HomePage
     {
-        //public static ILog Log = LogManager.GetLogger("LOGGER");
+        public static ILog Log = LogManager.GetLogger("LOGGER");
 
         private IWebDriver Browser;
         [FindsBy(How=How.Name, Using = "schedule_station_from")] 
-        private IWebElement Station_from;
+        private IWebElement StationFromField;
         [FindsBy(How = How.Name, Using = "schedule_station_to")]
-        private IWebElement Station_to;
+        private IWebElement StationToField;
         [FindsBy(How = How.ClassName, Using = "j-date_to")]
-        private IWebElement Date;
+        private IWebElement DateField;
         [FindsBy(How = How.ClassName, Using = "m-border_inner")]
-        private IWebElement Find;
+        private IWebElement FindButton;
         [FindsBy(How = How.ClassName, Using = "date_back_container")]
-        private IWebElement BackDate;
+        private IWebElement BackDateButton;
         [FindsBy(How = How.ClassName, Using = "j-link-register")]
-        private IWebElement Register;
+        private IWebElement BeginRegistrationButton;
         [FindsBy(How = How.ClassName, Using = "j-agree")]
-        private IWebElement ChekBox;
+        private IWebElement ActiveRegistrationCheckBox;
         [FindsBy(How = How.XPath, Using = "//*[@id='reg-container']/div/div[1]/div[1]/form/div[4]/button")]
-        private IWebElement RegisterButton;
+        private IWebElement RegistrationButton;
         [FindsBy(How = How.ClassName, Using = "paragraph")]
-        private IWebElement Station_Error2;
+        private IWebElement RegistrationError;
         [FindsBy(How = How.ClassName, Using = "j-popup-content")]
-        private IWebElement Station_Error;
+        private IWebElement StationError;
 
         public HomePage(IWebDriver Browser)
         {
@@ -44,53 +43,60 @@ namespace Framework.Pages
             PageFactory.InitElements(Browser, this);
         }
         
-        public Trains InpuntInformationAndMoveTo(Way way)
+        public TrainsPage InpuntInformationAndMoveToNextPage(Way way)
         {
-            Station_from.SendKeys(way.DepartureCity);
-            Station_to.SendKeys(way.ArrivalCity);
-            Date.SendKeys(way.Departure_date);
-            Date.Click();
-            Find.Click();
-            return new Trains(Browser);
+            StationFromField.SendKeys(way.DepartureCity);
+            StationToField.SendKeys(way.ArrivalCity);
+            DateField.SendKeys(way.DepartureDate);
+            DateField.Click();
+            FindButton.Click();
+            Log.Info("Input Station Information and move to next page");
+            return new TrainsPage(Browser);
         }
         public HomePage InpuntInformation(Way way)
         {
-            Station_from.SendKeys(way.DepartureCity);
-            Station_to.SendKeys(way.ArrivalCity);
-            Date.SendKeys(way.Departure_date);
-            Date.Click();
-            Find.Click();
+            StationFromField.SendKeys(way.DepartureCity);
+            StationToField.SendKeys(way.ArrivalCity);
+            DateField.SendKeys(way.DepartureDate);
+            DateField.Click();
+            FindButton.Click();
+            Log.Info("Input Station Information");
             return this;
         }
 
-        public HomePage Sign()
+        public HomePage EnterRegistrationButton()
         {
-                Register.Click();
-                ChekBox.Click();
-                RegisterButton.Click();
+            BeginRegistrationButton.Click();
+            ActiveRegistrationCheckBox.Click();
+            RegistrationButton.Click();
+            Log.Info("Enter registration button");
             return this;
         }
         public bool EnableBackDate()
         {
             try
             {
-                BackDate.Click();
+                BackDateButton.Click();
+                Log.Info("Click backdate button");
                 return true;
             }
             catch
             {
+                Log.Info("Backdate button notclicked");
                 return false;
             }
         }
+
         public string GetError()
         {
-            return Station_Error.Text;
-            
+            Log.Info("Get station error");
+            return StationError.Text;            
         }
+
         public string GetErrorRegister()
         {
-            return Station_Error2.Text;
-
+            Log.Info("Get registration error");
+            return RegistrationError.Text;
         }
     }
 }

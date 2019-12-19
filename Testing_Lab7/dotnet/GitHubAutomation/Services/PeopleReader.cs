@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace GitHubAutomation.Services
 {
-    class TestPastDate
+    class PeopleReader
     {
         static Configuration Config
         {
             get
             {
-                string file = "DateCheck";
+                string file = "People_number";
                 int index = AppDomain.CurrentDomain.BaseDirectory.IndexOf("bin", StringComparison.Ordinal);
                 var configeMap = new ExeConfigurationFileMap
                 {

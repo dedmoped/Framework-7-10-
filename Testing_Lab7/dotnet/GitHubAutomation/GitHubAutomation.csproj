@@ -158,14 +158,14 @@
     <Compile Include="Models\Way.cs" />
     <Compile Include="Pages\HomePage.cs" />
     <Compile Include="Pages\InputInformationPage.cs" />
-    <Compile Include="Pages\TakePlace.cs" />
-    <Compile Include="Pages\Trains.cs" />
+    <Compile Include="Pages\TakePlacePage.cs" />
+    <Compile Include="Pages\TrainsPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CreateWay.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\StationsReader.cs" />
-    <Compile Include="Services\TestPastDate.cs" />
-    <Compile Include="Services\TestNumberofPeople.cs" />
+    <Compile Include="Services\PastDateReader.cs" />
+    <Compile Include="Services\PeopleReader.cs" />
     <Compile Include="Tests\TestConfig.cs" />
     <Compile Include="Tests\TransportTest.cs" />
   </ItemGroup>

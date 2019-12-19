@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using GitHubAutomation.Services;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -30,6 +31,7 @@ namespace Framework.Driver
                 }
                 driver.Manage().Window.Maximize();
             }
+            Logger.Log.Info("Create driver");
             return driver;
         }
 
@@ -37,6 +39,7 @@ namespace Framework.Driver
         {
             driver.Quit();
             driver = null;
+            Logger.Log.Info("Close driver");
         }
     }
 }

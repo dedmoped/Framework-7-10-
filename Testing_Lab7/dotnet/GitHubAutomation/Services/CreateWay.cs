@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Framework.model;
+﻿using Framework.model;
 using GitHubAutomation.Services;
 
 namespace Framework.Services
@@ -17,12 +12,12 @@ namespace Framework.Services
 
         public static Way CheckDate()
         {
-            return new Way(TestPastDate.GetData("DepartureCity").Value, TestPastDate.GetData("ArrivalCity").Value, TestPastDate.GetData("Departure_date").Value);
+            return new Way(PastDateReader.GetData("DepartureCity").Value, PastDateReader.GetData("ArrivalCity").Value, PastDateReader.GetData("Departure_date").Value);
         }
 
         public static Way GetPeopleNumberInfo()
         {
-            return new Way(TestNumberofPeople.GetData("DepartureCity").Value, TestNumberofPeople.GetData("ArrivalCity").Value, TestNumberofPeople.GetData("Departure_date").Value);
+            return new Way(PeopleReader.GetData("DepartureCity").Value, PeopleReader.GetData("ArrivalCity").Value, PeopleReader.GetData("Departure_date").Value);
         }
         public  static Way Stations()
         {

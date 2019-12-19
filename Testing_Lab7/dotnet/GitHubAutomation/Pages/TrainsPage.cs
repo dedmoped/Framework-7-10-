@@ -6,27 +6,31 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using log4net;
+using GitHubAutomation.Services;
 
 namespace Framework.Pages
 {
-    class Trains
+    class TrainsPage
     {
+
         [FindsBy(How = How.ClassName, Using = "_blue")]
-        private IWebElement First_Train;
+        private IWebElement ChooseFirstTrain;
         [FindsBy(How = How.ClassName, Using = "b-alert__standart")]
         private IWebElement Error;
         private IWebDriver Browser;
 
-        public Trains(IWebDriver Browser)
+        public TrainsPage(IWebDriver Browser)
         {
             this.Browser = Browser;
             PageFactory.InitElements(Browser,this);
         }
-        public TakePlace Takefirst()
+        public TakePlacePage TakeFirstTrain()
         {
-            First_Train.Click();
+            ChooseFirstTrain.Click();
             ChangeWindow(Browser);
-            return new TakePlace(Browser);
+            Logger.Log.Info("Take First Train");
+            return new TakePlacePage(Browser);
         }
 
         private void ChangeWindow(IWebDriver Browser)
@@ -38,6 +42,7 @@ namespace Framework.Pages
         }
         public string GetError()
         {
+            Logger.Log.Info("Get Error");
             return Error.Text;
         }
 

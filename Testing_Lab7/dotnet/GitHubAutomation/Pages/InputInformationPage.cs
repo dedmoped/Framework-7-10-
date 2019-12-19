@@ -1,4 +1,5 @@
 ﻿using Framework.model;
+using GitHubAutomation.Services;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
@@ -9,51 +10,56 @@ using System.Threading.Tasks;
 
 namespace Framework.Pages
 {
-    class DataTest
+    class InputInformationPage
     {
         private IWebDriver Browser;
         [FindsBy(How = How.ClassName, Using = "inner_wrapper")]
-        private IWebElement Find;
+        private IWebElement FindButton;
         [FindsBy(How = How.ClassName, Using = "b2b__selectWrapper__2O12k")]
-        private IWebElement Change;
+        private IWebElement ChangeButton;
         [FindsBy(How = How.ClassName, Using = "m-input_small")]
-        private IWebElement ClickDocNumber;
+        private IWebElement ClickEnterPersonalInformation;
         [FindsBy(How = How.ClassName, Using = "_last_name")]
-        private IWebElement Station_Error;
+        private IWebElement PersonalInformationFieldError;
         [FindsBy(How = How.XPath, Using = "//*[@id='app']/div/div[5]/div/div/div[2]/div/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/span/div/div/div")]
-        private IWebElement DocumentError;
+        private IWebElement PersonalInformationError;
 
-        public DataTest(IWebDriver Browser)
+        public InputInformationPage(IWebDriver Browser)
         {
             this.Browser = Browser;
             PageFactory.InitElements(Browser, this);
         }
 
-        public DataTest InpuntInformation()
+        public InputInformationPage ClickFindButton()
         {
-            Find.Click();
+            FindButton.Click();
+            Logger.Log.Info("Click Find Button");
             return this;
         }
-        public DataTest CheckCompany()
+        public InputInformationPage CheckCompany()
         {
-            Change.Click();
-            Find.Click();
+            ChangeButton.Click();
+            FindButton.Click();
+            Logger.Log.Info("Check Company");
             return this;
         }
-        public DataTest CheckDoc()
+        public InputInformationPage CheckPersonalInformation()
         {
-            Find.Click();
-            ClickDocNumber.Click();
+            FindButton.Click();
+            ClickEnterPersonalInformation.Click();
+            Logger.Log.Info("Check Personal Information");
             return this;
         }
         
-        public string GetError()
+        public string GetPersonalInformationError()
         {
-            return Station_Error.Text;
+            Logger.Log.Info("Get Personal Information Error");
+            return PersonalInformationFieldError.Text;
         }
-        public string GetDocumentError()
+        public string GetEnterCompanyError()
         {
-            return DocumentError.Text;
+            Logger.Log.Info("GetEnterCompanyError");
+            return PersonalInformationError.Text;
         }
 
     }

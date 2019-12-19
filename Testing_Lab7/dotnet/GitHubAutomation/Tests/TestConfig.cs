@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.Extensions;
 using Framework.Driver;
 using NUnit.Framework.Interfaces;
 using System.Threading;
+using GitHubAutomation.Services;
 
 namespace Framework.Tests
 {
@@ -18,6 +19,8 @@ namespace Framework.Tests
         public void Setter()
         {
             Browser = DriverSingleton.GetDriver();
+            Logger.InitLogger();
+            Logger.Log.Debug("Browser init");
             Browser.Navigate().GoToUrl("https://www.tutu.ru/");
         }
 

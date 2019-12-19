@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Framework.model
 {
@@ -10,13 +6,13 @@ namespace Framework.model
     {
         public string DepartureCity { get; set; }
         public string ArrivalCity{ get; set; }
-        public string Departure_date { get; set; }
+        public string DepartureDate { get; set; }
 
-        public Way(string departureCity, string arrivalCity,string departure_date)
+        public Way(string departureCity, string arrivalCity,string departureDate)
         {
             DepartureCity = departureCity;
             ArrivalCity = arrivalCity;
-            Departure_date = departure_date;
+            DepartureDate = departureDate;
         }
     }
 }

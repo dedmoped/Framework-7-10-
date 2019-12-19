@@ -2,72 +2,84 @@
 using Framework.Pages;
 using Framework.Services;
 using Framework.Tests;
-using log4net;
-using System.Threading;
 using GitHubAutomation.Services;
 
 namespace Framework
 {
-    class TransportTest: TestConfig
+    class TransportTest : TestConfig
     {
-        private static ILog Log = LogManager.GetLogger("LOGGER");
 
         [Test]
-        public void TestStation()
+        public void TestArrivedStation()
         {
             Logger.InitLogger();
-            HomePage homePage = new HomePage(Browser).InpuntInformation(CreateWay.GetTestStationInfo());
-            Assert.AreEqual("Пожалуйста, укажите название станции",homePage.GetError());
-            Logger.Log.Debug("Test complete successfully");
+            HomePage homePage = new HomePage(Browser)
+                .InpuntInformation(CreateWay.GetTestStationInfo());
+            Assert.AreEqual("Пожалуйста, укажите название станции", homePage.GetError());
         }
         [Test]
         public void TestNumberOfPeople()
         {
-            TakePlace homePage = new HomePage(Browser).InpuntInformationAndMoveTo(CreateWay.GetPeopleNumberInfo()).Takefirst().ChooseNumberOfPeoples(); 
-            Assert.AreEqual("Вы не выбрали ни одного пассажира", homePage.GetError());
+            TakePlacePage takePlace = new HomePage(Browser)
+                .InpuntInformationAndMoveToNextPage(CreateWay.GetPeopleNumberInfo())
+                .TakeFirstTrain().ChooseNumberOfPeoples();
+            Assert.AreEqual("Вы не выбрали ни одного пассажира", takePlace.GetError());
         }
-        //вод одинаковых городов для отправления и прибытия
+
         [Test]
-        public void IdenticalStations()
+        public void StationFromTest()
         {
-            HomePage homePage = new HomePage(Browser).InpuntInformation(CreateWay.Stations());
+            HomePage homePage = new HomePage(Browser)
+                .InpuntInformation(CreateWay.Stations());
             Assert.AreEqual("Пожалуйста, укажите название станции", homePage.GetError());
         }
 
         [Test]
-        public void CheckDate()
+        public void TestBackDate()
         {
-            Trains homePage = new HomePage(Browser).InpuntInformationAndMoveTo(CreateWay.CheckDate());
-            Assert.AreEqual("Вы выбрали прошедшую дату 12 декабря. Попробуйте поискать билеты на другой день\r\n.", homePage.GetError());
+            TrainsPage trainsPage = new HomePage(Browser)
+                .InpuntInformationAndMoveToNextPage(CreateWay.CheckDate());
+            Assert.AreEqual("Вы выбрали прошедшую дату 12 декабря. Попробуйте поискать билеты на другой день\r\n.", trainsPage.GetError());
         }
 
         [Test]
-        public void ChildrenBuyTickets()
+        public void TestChildrenBuyTickets()
         {
-            TakePlace homePage = new HomePage(Browser).InpuntInformationAndMoveTo(CreateWay.GetPeopleNumberInfo()).Takefirst().CheckChildrenNumber();
-            Assert.AreEqual("Ребенок до 10 лет не может ехать без взрослого", homePage.GetError());
+            TakePlacePage takePlacePage = new HomePage(Browser)
+                .InpuntInformationAndMoveToNextPage(CreateWay.GetPeopleNumberInfo())
+                .TakeFirstTrain()
+                .CheckChildrenNumber();
+            Assert.AreEqual("Ребенок до 10 лет не может ехать без взрослого", takePlacePage.GetError());
         }
 
         [Test]
-        public void Information()
+        public void TestPeopleInformation()
         {
-            DataTest homePage = new HomePage(Browser).InpuntInformationAndMoveTo(CreateWay.GetPeopleNumberInfo()).Takefirst().CorrectNumber().InpuntInformation();
-            Assert.AreEqual("Это поле необходимо заполнить", homePage.GetError());
+            InputInformationPage inputInformationPage = new HomePage(Browser)
+                .InpuntInformationAndMoveToNextPage(CreateWay.GetPeopleNumberInfo())
+                .TakeFirstTrain().ChekCorrectNumberOfPeople()
+                .ClickFindButton();
+            Assert.AreEqual("Это поле необходимо заполнить", inputInformationPage.GetPersonalInformationError());
         }
 
         [Test]
-        public void Company()
-        { 
-            DataTest homePage = new HomePage(Browser).InpuntInformationAndMoveTo(CreateWay.GetPeopleNumberInfo()).Takefirst().CorrectNumber().CheckCompany();
-            Assert.AreEqual("Это поле необходимо заполнить", homePage.GetError());
+        public void TestEmptyCompanyField()
+        {
+            InputInformationPage inputInformationPage = new HomePage(Browser)
+                .InpuntInformationAndMoveToNextPage(CreateWay.GetPeopleNumberInfo())
+                .TakeFirstTrain().ChekCorrectNumberOfPeople()
+                .CheckCompany();
+            Assert.AreEqual("Это поле необходимо заполнить", inputInformationPage.GetPersonalInformationError());
         }
 
 
         [Test]
-        public void DocumentTest()
+        public void TestDocumentNumber()
         {
-            DataTest homePage = new HomePage(Browser).InpuntInformationAndMoveTo(CreateWay.GetPeopleNumberInfo()).Takefirst().CorrectNumber().CheckDoc();
-            Assert.AreEqual("Вы ошиблись при вводе номера документа.", homePage.GetDocumentError());
+            InputInformationPage inputInformationPage = new HomePage(Browser)
+                .InpuntInformationAndMoveToNextPage(CreateWay.GetPeopleNumberInfo())
+                .TakeFirstTrain().ChekCorrectNumberOfPeople().CheckPersonalInformation();
+            Assert.AreEqual("Вы ошиблись при вводе номера документа.", inputInformationPage.GetEnterCompanyError());
         }
 
         [Test]
@@ -80,7 +92,8 @@ namespace Framework
         [Test]
         public void Register()
         {
-            HomePage homePage = new HomePage(Browser).Sign();
+            HomePage homePage = new HomePage(Browser)
+                .EnterRegistrationButton();
             Assert.AreEqual("Укажите электронную почту", homePage.GetErrorRegister());
         }
     }

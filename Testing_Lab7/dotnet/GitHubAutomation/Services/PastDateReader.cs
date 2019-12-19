@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GitHubAutomation.Services
 {
-    class TestNumberofPeople
+    class PastDateReader
     {
         static Configuration Config
         {
             get
             {
-                string file = "People_number";
+                string file = "DateCheck";
                 int index = AppDomain.CurrentDomain.BaseDirectory.IndexOf("bin", StringComparison.Ordinal);
                 var configeMap = new ExeConfigurationFileMap
                 {
