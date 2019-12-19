@@ -8,11 +8,13 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Framework.model;
 using log4net;
+using OpenQA.Selenium.Support.UI;
 
 namespace Framework.Pages
 {
     class HomePage
     {
+        WebDriverWait wait;
         public static ILog Log = LogManager.GetLogger("LOGGER");
 
         private IWebDriver Browser;
@@ -45,6 +47,7 @@ namespace Framework.Pages
         
         public TrainsPage InpuntInformationAndMoveToNextPage(Way way)
         {
+            CleareField(StationFromField, StationToField, DateField);
             StationFromField.SendKeys(way.DepartureCity);
             StationToField.SendKeys(way.ArrivalCity);
             DateField.SendKeys(way.DepartureDate);
@@ -55,6 +58,7 @@ namespace Framework.Pages
         }
         public HomePage InpuntInformation(Way way)
         {
+            CleareField(StationFromField, StationToField, DateField);
             StationFromField.SendKeys(way.DepartureCity);
             StationToField.SendKeys(way.ArrivalCity);
             DateField.SendKeys(way.DepartureDate);
@@ -97,6 +101,14 @@ namespace Framework.Pages
         {
             Log.Info("Get registration error");
             return RegistrationError.Text;
+        }
+        public void CleareField(IWebElement stationfrom,IWebElement stationto,IWebElement date )
+        {
+            wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementToBeClickable(StationFromField)).Click();
+            StationFromField.Clear();
+            wait.Until(ExpectedConditions.ElementToBeClickable(StationToField)).Click();
+            StationToField.Clear();
         }
     }
 }
